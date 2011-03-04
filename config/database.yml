@@ -1,0 +1,27 @@
+
+development:
+  adapter: postgresql
+  database: fagmented_development
+  host: localhost
+  pool: 5
+  timeout: 5000
+  username: postgres
+  password: password
+
+test:
+  adapter: postgresql
+  database: fragmented_test
+  host: localhost
+  pool: 5
+  timeout: 5000
+  username: postgres
+  password: password
+
+production:
+  adapter: postgresql
+  database: fragmented_production
+  host: localhost
+  pool: 5
+  timeout: 5000
+  username: postgres
+  password: password
