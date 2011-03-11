@@ -6,7 +6,7 @@ class FragmentsController < ApplicationController
   end
 
   def create
-    @fragment = Fragment.build(params[:fragment])
+    @fragment = Fragment.new(params[:fragment])
     if @fragment.save
       render :json => @fragment.to_json
     else
