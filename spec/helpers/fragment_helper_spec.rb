@@ -7,11 +7,11 @@ describe FragmentHelper do
   describe '#fragment_tag' do
 
     it "should generate a div to surround the fragment contents" do
-      helper.fragment_tag(@fragment, '/').should have_selector('div', :class => 'fragment')
+      helper.fragment_tag(@fragment, '/').should have_selector('div.fragment')
     end
 
     it "should give the surrounding div the id of fragment_ with the id provided appended" do
-      helper.fragment_tag(@fragment, '/').should have_selector('div', :class => 'fragment', :id => 'fragment_11')
+      helper.fragment_tag(@fragment, '/').should have_selector('div.fragment', :id => 'fragment_11')
     end
 
     it "should render the fragment contents into the read-area if provided with a fragment_id" do
@@ -20,6 +20,10 @@ describe FragmentHelper do
     end
 
     context "when in editable mode" do
+      it "should give the surrounding div the class editable" do
+        helper.fragment_tag(@fragment, '/').should have_selector('div', :class => 'fragment editable')
+      end
+
       it "should generate a text area for editing the fragment" do
         helper.fragment_tag(@fragment, '/').should have_selector('textarea', :class => 'edit-area')
       end

@@ -26,7 +26,6 @@ Fragment.prototype = {
     }
     else {
       this.holder.find('.markItUp').parent().show();
-      this.readArea.empty();
     }
     this.editArea.val(this.readArea.html());
     this.readControls.hide();
@@ -35,12 +34,7 @@ Fragment.prototype = {
     this.editArea.show();
     return false;
   },
-  readMode: function() {
-    if (this.markItUpInitialized) {
-      this.readArea.children().remove();
-      this.readArea.append(this.editArea.val());
-      this.editArea.val('');
-    }
+  readMode: function(updateContent) {
     this.editArea.hide();
     this.editControls.hide();
     this.readControls.show();
@@ -48,10 +42,16 @@ Fragment.prototype = {
     this.holder.find('.markItUp').parent().hide();
     return false;
   },
+  updateAndDisplayReadMode: function() {
+    this.readArea.empty();
+    this.readArea.append(this.editArea.val());
+    this.editArea.val('');
+    return this.readMode();
+  },
   saveFragment: function() {
     var settings = {
       data: 'fragment[contents]=' + this.editArea.val(),
-      success: this.handleSuccess,
+      success: $.proxy(this.handleSuccess, this),
       failure: this.handleFailure,
       type:  'PUT',
       url:  this.url
@@ -59,8 +59,9 @@ Fragment.prototype = {
     $.ajax(settings);
     return false;
   },
-  handleSuccess: function(msg) {
-    alert(msg);
+  handleSuccess: function(jqXHR) {
+    this.editArea.val(jqXHR.fragment.contents);
+    this.updateAndDisplayReadMode();
   },
   handleFailure: function(msg) {
     alert(msg);

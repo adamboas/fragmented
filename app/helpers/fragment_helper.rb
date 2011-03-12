@@ -1,6 +1,8 @@
 module FragmentHelper
   def fragment_tag(fragment, saveUrl, editable = true)
-    content_tag('div', raw(outer_containers(fragment, saveUrl, editable)), :class => 'fragment', :id => "fragment_#{fragment.id}")
+    classes = 'fragment'
+    classes << ' editable' if editable
+    content_tag('div', raw(outer_containers(fragment, saveUrl, editable)), :class => classes, :id => "fragment_#{fragment.id}")
   end
 
   def read_controls
