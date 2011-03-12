@@ -71,15 +71,15 @@ describe FragmentHelper do
 
   describe "#read_controls" do
     it "should generate a div to contain the controls" do
-      helper.read_controls().should have_selector('div', :class => 'read-controls')
+      helper.read_controls(@fragment).should have_selector('div', :class => 'read-controls')
     end
 
     it "should generate an edit link" do
-      helper.read_controls().should have_selector('a', :content => 'edit')
+      helper.read_controls(@fragment).should have_selector('a', :content => 'edit')
     end
 
     it "should generate an edit link with the class edit-link" do
-      helper.read_controls().should have_selector('a', :class => 'edit-link')
+      helper.read_controls(@fragment).should have_selector('a', :class => 'edit-link')
     end
   end
 

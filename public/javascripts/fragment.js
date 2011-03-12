@@ -1,44 +1,18 @@
-Fragment = function(holder, startInEditMode, url) {
+Fragment = function(holder, url) {
   this.url = url;
   this.holder = $(holder);
   this.editArea = this.holder.find('.edit-area');
   this.readArea = this.holder.find('.read-area');
   this.editControls = this.holder.find('.edit-controls');
   this.readControls = this.holder.find('.read-controls');
-  this.readControls.find('.edit-link').click($.proxy(this.editMode, this));
   this.editControls.find('.cancel-link').click($.proxy(this.readMode, this));
   this.editControls.find('.fragment-save').click($.proxy(this.saveFragment, this));
-  this.markItUpInitialized = false;
-  if (startInEditMode) {
-    this.editMode();
-  }
-  else {
-    this.readMode();
-  }
+  this.editArea.markItUp(mySettings);
+  this.readMode();
 };
 
 Fragment.prototype = {
-
-  editMode: function() {
-    if (!this.markItUpInitialized) {
-      this.editArea.markItUp(mySettings);
-      this.markItUpInitialized = true;
-    }
-    else {
-      this.holder.find('.markItUp').parent().show();
-    }
-    this.editArea.val(this.readArea.html());
-    this.readControls.hide();
-    this.readArea.hide();
-    this.editControls.show();
-    this.editArea.show();
-    return false;
-  },
   readMode: function(updateContent) {
-    this.editArea.hide();
-    this.editControls.hide();
-    this.readControls.show();
-    this.readArea.show();
     this.holder.find('.markItUp').parent().hide();
     return false;
   },
