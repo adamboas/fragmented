@@ -3,24 +3,15 @@ Fragment = function(holder, url) {
   this.holder = $(holder);
   this.editArea = this.holder.find('.edit-area');
   this.readArea = this.holder.find('.read-area');
-  this.editControls = this.holder.find('.edit-controls');
   this.readControls = this.holder.find('.read-controls');
-  this.editControls.find('.cancel-link').click($.proxy(this.readMode, this));
-  this.editControls.find('.fragment-save').click($.proxy(this.saveFragment, this));
+  $(document).bind('saveContent', $.proxy(this.saveFragment, this));
   this.editArea.markItUp(mySettings);
-  this.readMode();
 };
 
 Fragment.prototype = {
-  readMode: function(updateContent) {
-    this.holder.find('.markItUp').parent().hide();
-    return false;
-  },
-  updateAndDisplayReadMode: function() {
+  updateAndDisplayReadMode: function(text) {
     this.readArea.empty();
-    this.readArea.append(this.editArea.val());
-    this.editArea.val('');
-    return this.readMode();
+    this.readArea.append(text);
   },
   saveFragment: function() {
     var settings = {
@@ -35,7 +26,7 @@ Fragment.prototype = {
   },
   handleSuccess: function(jqXHR) {
     this.editArea.val(jqXHR.fragment.contents);
-    this.updateAndDisplayReadMode();
+    this.updateAndDisplayReadMode(jqXHR.fragment.contents);
   },
   handleFailure: function(msg) {
     alert(msg);

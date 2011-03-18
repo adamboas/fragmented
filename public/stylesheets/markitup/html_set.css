@@ -54,6 +54,10 @@
 .markItUp .clean a {
 	background-image:url(/images/markitup/sets/html/clean.png);
 }
-.markItUp .preview a {
-	background-image:url(/images/markitup/sets/html/preview.png);
+.markItUp .save a {
+	background-image:url(/images/markitup/sets/html/save.png);
+}
+
+.markItUp .cancel a {
+	background-image:url(/images/markitup/sets/html/cancel.png);
 }

@@ -12,20 +12,18 @@ module FragmentHelper
                 :class => 'read-controls')
   end
 
-  def edit_controls
-    content_tag('div', raw([link_to('cancel', '#', :class => 'cancel-link'),
-                            content_tag('button', 'save', :class => 'fragment-save')]), :class => 'edit-controls')
-  end
-
   def script_block(fragment, saveUrl)
     script = <<-EOS
       $(document).ready(function(){
         new Fragment("#fragment_#{fragment.id}", "#{saveUrl}");
         $("#fragment_#{fragment.id} a.edit-link").fancybox({
-          'opacity': true,
+          'opacity': false,
           'overlayShow': false,
           'transitionIn': 'elastic',
-          'transitionOut': 'none'
+          'transitionOut': 'elastic',
+          'speedIn': 200,
+          'speedOut': 200,
+          'titlePosition': 'inside'
         });
       });
     EOS
@@ -38,8 +36,9 @@ module FragmentHelper
     text = fragment.present? ? fragment.contents : ''
     tag_contents = content_tag('div', raw(text), :class => 'read-area')
     if editable
-      tag_contents = [script_block(fragment, saveUrl), read_controls(fragment), edit_controls,
-                      text_area_tag('contents', text, :class => 'edit-area', :id => "contents_#{fragment.id}"),
+      tag_contents = [script_block(fragment, saveUrl), read_controls(fragment),
+                      content_tag('div', text_area_tag('contents', text, :class => 'edit-area',
+                                                       :id => "contents_#{fragment.id}"), :style => 'display:none;'),
       ] << tag_contents
     end
     tag_contents
