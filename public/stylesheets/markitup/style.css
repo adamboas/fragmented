@@ -154,7 +154,7 @@
   border: 1px solid #cccccc;
 }
 
-.read-controls a, .edit-controls a, .edit-controls button {
+a.edit-link {
   float:right;
   margin:0.5em
 }

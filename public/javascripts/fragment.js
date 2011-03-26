@@ -3,8 +3,8 @@ Fragment = function(holder, url) {
   this.holder = $(holder);
   this.editArea = this.holder.find('.edit-area');
   this.readArea = this.holder.find('.read-area');
-  this.readControls = this.holder.find('.read-controls');
   $(document).bind('saveContent', $.proxy(this.saveFragment, this));
+  $(document).bind('cancelEdit', $.proxy(this.cancelEdit, this));
   this.editArea.markItUp(mySettings);
 };
 
@@ -12,6 +12,9 @@ Fragment.prototype = {
   updateAndDisplayReadMode: function(text) {
     this.readArea.empty();
     this.readArea.append(text);
+  },
+  cancelEdit: function() {
+    this.editArea.val(this.readArea.html());
   },
   saveFragment: function() {
     var settings = {

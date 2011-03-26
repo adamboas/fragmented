@@ -37,7 +37,7 @@ mySettings = {
       return markitup.selection.replace(/<(.*?)>/g, "")
     } },
       {separator:'---------------' },
-    {name:'Cancel', className:'cancel', call:'$.fancybox.close', notForMarkup: true },
+    {name:'Cancel', className:'cancel', call:function(){$.fancybox.close(); $(document).trigger("cancelEdit")}, notForMarkup: true },
     {name:'Save', className:'save', call:function(){$(document).trigger("saveContent"); $.fancybox.close();}, notForMarkup: true }
   ]
 }

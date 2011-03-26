@@ -12,9 +12,10 @@
 #
 src_files:
   - public/javascripts/jquery.js
-  - public/javascripts/jqery.markitup.js
+  - public/javascripts/jquery.markitup.js
+  - public/javascripts/set.js
   - public/javascripts/fragment.js
-  - public/javascripts/**/*.js
+#  - public/javascripts/**/*.js
 
 # stylesheets
 #

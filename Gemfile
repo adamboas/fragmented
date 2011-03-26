@@ -13,6 +13,5 @@ gem 'jasmine'
 group :development, :test do
   gem 'rspec-rails'
   gem "webrat"
-  gem "rcov"
-  gem 'ruby-debug'
+  gem "simplecov"
 end

@@ -8,6 +8,9 @@ beforeEach(function() {
     },
     toExist: function() {
       return this.actual != undefined && this.actual != null;
+    },
+    toBeHidden: function() {
+      return this.actual.is(':hidden');
     }
   })
 });
