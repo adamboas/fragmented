@@ -1,33 +1,31 @@
 class FragmentsController < ApplicationController
-  before_filter :find_fragment, :only => [:show, :update, :destroy]
+  before_filter :find_fragment, :only => [:show, :update]
 
   def show
-    render :json => @fragment.to_json
+    render :json => @fragment
   end
 
   def create
-    @fragment = Fragment.new(params[:fragment])
-    if @fragment.save
-      render :json => @fragment.to_json
-    else
-      render :text => "Invalid fragment", :status => 400
-    end
+    Fragment.create!(params[:fragment])
+    render :json => @fragment.to_json
+  rescue
+    render :text => "Invalid fragment", :status => 400
   end
 
   def update
-    @fragment.update_attributes(params[:fragment])
-    if @fragment.save
-      render :json => @fragment.to_json
+    if @fragment.update_attributes(params[:fragment])
+      render :json => @fragment
     else
       render :text => "Invalid fragment", :status => 400
     end
   end
 
   def destroy
-    Fragment.delete(@fragment)
+    Fragment.delete(params[:id])
     render :text => 'Fragment removed'
   end
 
+  private
   def find_fragment
     @fragment = Fragment.find(params[:id])
   end

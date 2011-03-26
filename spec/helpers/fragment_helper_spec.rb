@@ -44,7 +44,7 @@ describe FragmentHelper do
       end
 
       it "should generate a script block for initializing the javascript" do
-        helper.should_receive(:script_block).with(fragment, '/').and_return('stuff')
+        helper.should_receive(:script_block).with(fragment.id, '/').and_return('stuff')
         subject
       end
     end

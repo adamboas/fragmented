@@ -1,17 +1,17 @@
 module FragmentHelper
-  def fragment_tag(fragment, saveUrl, editable = true)
-    classes = 'fragment'
-    classes << ' editable' if editable
-    content = editable ? edit_tags(fragment, saveUrl) : ''
-    content += content_tag('div', raw(fragment.contents), :class => 'read-area')
-    content_tag('div', raw(content), :class => classes, :id => "fragment_#{fragment.id}")
+  def fragment_tag(fragment, save_url, editable = true)
+    contents = fragment.contents
+    id = fragment.id
+    content = editable ? edit_tags(id, contents, save_url) : ''
+    content += content_tag('div', raw(contents), :class => 'read-area')
+    content_tag('div', raw(content), :class => get_classes(editable), :id => "fragment_#{id}")
   end
 
-  def script_block(fragment, saveUrl)
+  def script_block(id, save_url)
     script = <<-EOS
       $(document).ready(function(){
-        new Fragment("#fragment_#{fragment.id}", "#{saveUrl}");
-        $("#fragment_#{fragment.id} a.edit-link").fancybox({
+        new Fragment("#fragment_#{id}", "#{save_url}");
+        $("#fragment_#{id} a.edit-link").fancybox({
           'opacity': false,
           'overlayShow': false,
           'transitionIn': 'elastic',
@@ -27,11 +27,14 @@ module FragmentHelper
 
   private
 
-  def edit_tags(fragment, saveUrl)
-      script_block(fragment, saveUrl) +
-      link_to('edit', "#markItUpContents_#{fragment.id}",
-                               :class => 'edit-link', :title => 'editing content') +
-      content_tag('div', text_area_tag('contents', fragment.contents, :class => 'edit-area',
-                                                       :id => "contents_#{fragment.id}"), :style => 'display:none;')
+  def edit_tags(id, contents, save_url)
+    script_block(id, save_url) +
+        link_to('edit', "#markItUpContents_#{id}", :class => 'edit-link', :title => 'editing content') +
+        content_tag('div', text_area_tag('contents', contents, :class => 'edit-area',
+                                         :id => "contents_#{id}"), :style => 'display:none;')
+  end
+
+  def get_classes(editable)
+    editable ? 'fragment editable' : 'fragment'
   end
 end

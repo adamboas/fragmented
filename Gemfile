@@ -14,4 +14,5 @@ group :development, :test do
   gem 'rspec-rails'
   gem "webrat"
   gem "simplecov"
+  gem 'metric_fu'
 end
